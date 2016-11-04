@@ -3,14 +3,15 @@ package glavniProzor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Random;
 
 import efekti.Particle;
 import gui.Bag;
+import nebo.Zvezda;
+import nebo.Zvezde;
 import particleUtil.ParticleCount;
 import rafgfxlib.GameFrame;
-import rafgfxlib.GameFrame.GFMouseButton;
 
 public class DogeFrame extends GameFrame{
 	/**
@@ -22,7 +23,7 @@ public class DogeFrame extends GameFrame{
 	public static final int FRAME_HEIGHT=700;
 	public static final int COIN_SPAWN=30;
 	public static final int DOGE_SPEED=10;
-	
+	public static final int NUMBER_OF_STARS=40;
 	
 	
 	//lista koinova da se renderuje
@@ -39,12 +40,13 @@ public class DogeFrame extends GameFrame{
 	private SpriteSheet dogeSprite;
 	private DogeSprite doge;
 	private ParticleCount particles;
-	
+	private Zvezde zvezde ;
 	
 	
 	public DogeFrame(){
 		super("Doge to the moon",FRAME_WIDTH,FRAME_HEIGHT);
-		
+		zvezde = new Zvezde();
+		initStars();
 		particles = new ParticleCount();
 		coinSprite = new SpriteSheet("slike/coins.png", 1, 4);
 		coins = new CoinCounter();
@@ -81,10 +83,15 @@ public class DogeFrame extends GameFrame{
 			c.draw(g);
 		}
 		doge.draw(g);
-		bag.render(g);
+		
 		for(Particle cp : particles.getCoinParticles()){
 			cp.render(g);
 		}
+		for(Zvezda z : zvezde.getZvezde()){
+			z.render(g);
+		}
+		zvezde.refactor();
+		bag.render(g);
 	}
 
 	@Override
@@ -171,7 +178,23 @@ public class DogeFrame extends GameFrame{
 	@Override
 	public void handleMouseDown(int x, int y, GFMouseButton button) {
 		// TODO Auto-generated method stub
+		Random r = new Random();
+		int x1,y1;
+		x = r.nextInt(DogeFrame.WIDTH);
+		y = r.nextInt(DogeFrame.FRAME_HEIGHT/3);
 		
+		//28 35
+		
+		int scala = (r.nextInt(35)+28)%35+1;
+		double rotate = r.nextDouble()*Math.PI;
+		
+		if(rotate == 0){
+			rotate = 1.0;
+		}
+		
+		Zvezda z = new Zvezda(x, y,  scala, rotate);
+		zvezde.add(z);
+		//zvezde.add(z);
 	}
 
 	@Override
@@ -238,6 +261,28 @@ public class DogeFrame extends GameFrame{
     }
 	
 	
+    public void initStars(){
+    	for(int i=0;i<DogeFrame.NUMBER_OF_STARS;i++){
+			Random r = new Random();
+			
+			int x,y;
+			x = r.nextInt(DogeFrame.WIDTH);
+			y = r.nextInt(DogeFrame.FRAME_HEIGHT/3);
+			
+			//28 35
+			
+			int scala = (r.nextInt(35)%35+28);
+			double rotate = r.nextDouble()*Math.PI;
+			
+			if(rotate == 0){
+				rotate = 1.0;
+			}
+			
+			Zvezda z = new Zvezda(x, y,  scala, rotate);
+			zvezde.add(z);
+		}
+    	zvezde.refactor();
+    }
 	
 	public static void main(String[] args) {
 		
