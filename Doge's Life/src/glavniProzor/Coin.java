@@ -40,6 +40,8 @@ public class Coin {
 		}
 	}
 	
+	
+	
 	public void draw(Graphics g)
 	{
 		mySheet.drawTo(g, posX, posY, 0, animationID);
