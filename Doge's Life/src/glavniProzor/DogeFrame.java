@@ -30,7 +30,6 @@ public class DogeFrame extends GameFrame{
 	//lista koinova da se renderuje
 	
 	private CoinCounter coins;
-	private Backround pozadina;
 	private int coinTickCount=0;
 	private Random rnd = new Random();
 	private Color c = Color.yellow;
@@ -51,7 +50,6 @@ public class DogeFrame extends GameFrame{
 		particles = new ParticleCount();
 		coinSprite = new SpriteSheet("slike/coins.png", 1, 4);
 		coins = new CoinCounter();
-		pozadina = new Backround("slike/forest.png");
 		dogeSprite=new SpriteSheet("slike/doge_sprite.png", 4, 9);
 		doge = new DogeSprite(dogeSprite,FRAME_WIDTH/2,FRAME_HEIGHT-100);
 		
