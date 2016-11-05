@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gui.DBallM;
+import rafgfxlib.Util;
 
 public class DogeSprite {
 
@@ -26,6 +27,7 @@ public class DogeSprite {
 	private double dy;
 	private ArrayList<DBallM> kuglice = new ArrayList<>();
 	private int centerX,centerY;
+	private BufferedImage pozadina = Util.loadImage("slike/pozadina.jpg");
 	
 	
 	
@@ -57,6 +59,15 @@ public class DogeSprite {
 		kuglice.add(new DBallM(15,15,Color.YELLOW));
 	}
 	
+	
+	//iscrtavanje pozadine
+	
+	public void drawBG(Graphics g) {
+		g.drawImage(pozadina, 0,0, null);
+	}
+	
+	
+	
 	public void update()
 	{
 		
@@ -65,8 +76,6 @@ public class DogeSprite {
 		int pomx,pomy;
 		pomx=mySheet.getFrameWidth()/2;
 		pomy=mySheet.getFrameH()/2;
-		
-		
 		
 		for(DBallM k:kuglice){
 			
@@ -100,8 +109,10 @@ public class DogeSprite {
 		}
 	}
 	
+	
 	public void draw(Graphics g)
 	{
+		
 		//kugle koje su iza y= (dy*sqrt(dx*dx-x*x))/dx
 		
 		for(DBallM db : kuglice){
@@ -109,6 +120,7 @@ public class DogeSprite {
 				db.draw(g,centerX,centerY);
 			}
 		}
+		
 		
 		mySheet.drawTo(g, posX, posY, animFrame, animationID);
 		

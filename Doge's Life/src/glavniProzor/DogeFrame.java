@@ -1,6 +1,7 @@
 package glavniProzor;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -76,8 +77,8 @@ public class DogeFrame extends GameFrame{
 
 	@Override
 	public void render(Graphics2D g, int sw, int sh) {
-		// TODO Auto-generated method stub
-		//g.drawImage(pozadina.getBackround(), null, 0, 0);
+	
+		doge.drawBG(g);
 		
 		for(Coin c : coins.getCoins()){
 			c.draw(g);
@@ -90,6 +91,7 @@ public class DogeFrame extends GameFrame{
 		for(Zvezda z : zvezde.getZvezde()){
 			z.render(g);
 		}
+		
 		zvezde.refactor();
 		bag.render(g);
 		doge.draw(g);
