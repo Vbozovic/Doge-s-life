@@ -1,9 +1,13 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JLabel;
 
 import glavniProzor.DogeFrame;
 import rafgfxlib.Util;
@@ -15,6 +19,9 @@ public class Bag {
 	private int posY;
 	private int x=1,y=0;
 	private int inc = 0;
+	private String string = "Coins collected: ";
+	private Font font = new Font(Font.SANS_SERIF, Font.BOLD, 16);
+	private String broj = Integer.toString(DogeFrame.brojac);
 	
 	
 	public Bag(){
@@ -22,6 +29,7 @@ public class Bag {
 		slika = temp.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		posX = DogeFrame.FRAME_WIDTH/2 + DogeFrame.FRAME_WIDTH/4+40;
 		posY=35;
+		
 	}
 	
 	
@@ -42,6 +50,10 @@ public class Bag {
 		g.setColor(Color.BLUE);
 		g.fillOval(dx1-7, dy1-7, sx2+12+inc, sy2+12+inc);
 		
+		g.setFont(font);
+		g.setColor(Color.YELLOW);
+		g.drawString(string, DogeFrame.FRAME_WIDTH/2 + DogeFrame.FRAME_WIDTH/4, 160);
+		g.drawString(broj, DogeFrame.FRAME_WIDTH/2 + DogeFrame.FRAME_WIDTH/4+150, 160);
 		g.drawImage(slika, dx1+inc/2, dy1+inc/2, dx2+inc/2, dy2+inc/2, sx1, sy1, sx2, sy2, null);
 		
 		if(inc > 0){

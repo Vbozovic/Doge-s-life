@@ -2,6 +2,7 @@ package glavniProzor;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 
 import rafgfxlib.Util;
 
@@ -55,8 +56,30 @@ public class SpriteSheet {
 	
 	
 	
-	public void applyEffect()
-	{
+	public void applyNegative() {
+		
+		WritableRaster source = sheet.getRaster();
+		WritableRaster target = Util.createRaster(source.getWidth(), source.getHeight(), false);
+		int rgb[] = new int[3];
+		
+		for (int y=0;y<source.getHeight();y++) {
+			for (int x=0;x<source.getWidth();x++) {
+				
+				source.getPixel(x, y, rgb);
+				
+				int i=(rgb[0]+rgb[1]+rgb[2])/3;
+				rgb[0]=i;
+				rgb[1]=i;
+				rgb[2]=i;
+				
+				target.setPixel(x, y, rgb);
+				
+			
+			}
+		}
+		
+		
+		
 		
 	}
 	public void setOffsets(int x, int y)

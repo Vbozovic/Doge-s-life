@@ -27,12 +27,14 @@ public class DogeFrame extends GameFrame{
 	public static final int NUMBER_OF_STARS=40;
 	public static int ticker=0;
 	
+	
 	//lista koinova da se renderuje
 	
 	private CoinCounter coins;
 	private int coinTickCount=0;
 	private Random rnd = new Random();
 	private Color c = Color.yellow;
+	public static int brojac = 0;  //treba nekako da se refreshuje
 	
 	//private StarField nebo;
 	private Bag bag = new Bag();
@@ -145,13 +147,14 @@ public class DogeFrame extends GameFrame{
 			
 			if((x2-x1)*(x2-x1) + (y1-y2)*(y1-y2) <= (r1+r2)*(r1+r2)){
 				//System.out.println("Doge colision");
-				
+				brojac++;
 				
 				
 				int x = bag.getPosX();
 				int y = bag.getPosY();
 				for(int i=0;i<10;i++){
 					addParticle(x, y);
+				
 				}
 				
 				bag.setInc(10);
