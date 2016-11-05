@@ -145,6 +145,8 @@ public class DogeFrame extends GameFrame{
 			if((x2-x1)*(x2-x1) + (y1-y2)*(y1-y2) <= (r1+r2)*(r1+r2)){
 				System.out.println("Doge colision");
 				
+				
+				
 				int x = bag.getPosX();
 				int y = bag.getPosY();
 				for(int i=0;i<10;i++){

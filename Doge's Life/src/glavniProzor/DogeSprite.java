@@ -22,11 +22,11 @@ public class DogeSprite {
 		posY = Y;
 		mySheet = sheet;
 		BufferedImage novo=mySheet.getSheet();
-		int w = novo.getWidth()*2;
-		int h = novo.getHeight()*2;
+		int w = novo.getWidth()*3;
+		int h = novo.getHeight()*3;
 		BufferedImage after = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		AffineTransform at = new AffineTransform();
-		at.scale(2.0, 2.0);
+		at.scale(3.0, 3.0);
 		AffineTransformOp scaleOp = 
 		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		after = scaleOp.filter(novo, after);
