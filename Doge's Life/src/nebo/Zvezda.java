@@ -3,13 +3,15 @@ package nebo;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
-import glavniProzor.DogeFrame;
 import rafgfxlib.Util;
 
 public class Zvezda {
 
+	public static final int blinkTick=5;
 	
 	private Image image;
 	private double duzina;
@@ -18,8 +20,10 @@ public class Zvezda {
 	private int posY;
 	private AffineTransform transImage;
 	private double rotate=1;
-	private int scale=5;
-	
+	private int scale;
+	private int blinkScale;
+	private int direction=-1;
+	private int maxBlinkScale;
 	
 	
 	public Zvezda(int posX,int posY,int scale,double rotate){
@@ -32,6 +36,9 @@ public class Zvezda {
 		BufferedImage pom = Util.loadImage("slike/star.png");
 		image = pom.getScaledInstance(pom.getWidth()/scale, pom.getHeight()/scale, Image.SCALE_SMOOTH);
 		
+		Random r = new Random();
+		blinkScale = r.nextInt(7)+1;
+		maxBlinkScale = blinkScale;
 		//skejlujemo sliku
 		
 		
@@ -39,7 +46,18 @@ public class Zvezda {
 		
 	}
 	
-	public void update(){
+	public void update(int tick){
+		
+		if(tick % blinkTick == 0){
+		blinkScale+=direction;
+		if(blinkScale <=0){
+			direction*=-1;
+		}
+		if(blinkScale >=maxBlinkScale){
+			direction*=-1;
+		}
+		}
+		
 		
 	}
 	
@@ -67,16 +85,21 @@ public class Zvezda {
 		
 		if(rotate != 1){
 			
-			 AffineTransform at = new AffineTransform();
-             at.translate(DogeFrame.FRAME_WIDTH / 2, DogeFrame.FRAME_HEIGHT/ 2);
-             at.rotate(rotate);
-             at.translate(posX, posY);
+			/* AffineTransform at = AffineTransform.getRotateInstance(rotate, posX, posY);
+			 AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+			 
+             g.drawImage(image, at, null);*/
+			
              
-            
-             g.drawImage(image, at, null);
-
-			
-			
+            int ih=image.getHeight(null);
+ 			int iw=image.getWidth(null);
+ 			
+ 			
+ 			for(int i= blinkScale;i<=maxBlinkScale;i++){
+ 			g.drawImage(image, posX-(iw/2), posY - ih/2, 
+ 					posX+iw/2, posY + ih/2,
+ 					 0, 0,iw , ih, null);
+ 			}
 		}else{
 			int ih=image.getHeight(null);
 			int iw=image.getWidth(null);

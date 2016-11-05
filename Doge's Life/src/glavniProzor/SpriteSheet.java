@@ -8,13 +8,16 @@ import rafgfxlib.Util;
 public class SpriteSheet {
 
 	private BufferedImage sheet;
+	private BufferedImage originalsheet;
 	private int frameW, frameH;
 	private int sheetW, sheetH;
 	private int offsetX = 0, offsetY = 0;
+	private BufferedImage specialEffect;
 	
 	public SpriteSheet(String imageName, int columns, int rows)
 	{
 		sheet = Util.loadImage(imageName);
+		originalsheet = sheet;
 		if(imageName == null)
 		{
 			sheet = null;
@@ -46,6 +49,14 @@ public class SpriteSheet {
 				null);
 	}
 	
+	public void removeEffect(){
+		sheet=originalsheet;
+	}
+	
+	public void applyEffect()
+	{
+		
+	}
 	public void setOffsets(int x, int y)
 	{
 		offsetX = x;

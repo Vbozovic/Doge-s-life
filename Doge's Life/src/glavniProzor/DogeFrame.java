@@ -24,7 +24,7 @@ public class DogeFrame extends GameFrame{
 	public static final int COIN_SPAWN=30;
 	public static final int DOGE_SPEED=10;
 	public static final int NUMBER_OF_STARS=40;
-	
+	public static int ticker=0;
 	
 	//lista koinova da se renderuje
 	
@@ -82,7 +82,7 @@ public class DogeFrame extends GameFrame{
 		for(Coin c : coins.getCoins()){
 			c.draw(g);
 		}
-		doge.draw(g);
+		
 		
 		for(Particle cp : particles.getCoinParticles()){
 			cp.render(g);
@@ -92,6 +92,7 @@ public class DogeFrame extends GameFrame{
 		}
 		zvezde.refactor();
 		bag.render(g);
+		doge.draw(g);
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class DogeFrame extends GameFrame{
 		// TODO Auto-generated method stub
 		//coin.x=getMouseX();
 		//coin.y=getMouseY();
-		
+		ticker++;
 		if(isMouseButtonDown(GFMouseButton.Right))
 			addParticle(getMouseX(),getMouseY());
 		
@@ -175,12 +176,17 @@ public class DogeFrame extends GameFrame{
 		coins.refactor();
 		doge.update();
 		
+		for(Zvezda z : zvezde.getZvezde()){
+			z.update(ticker);
+		}
+		
+		ticker%=60;
 	}
 
 	@Override
 	public void handleMouseDown(int x, int y, GFMouseButton button) {
 		// TODO Auto-generated method stub
-		Random r = new Random();
+		/*Random r = new Random();
 		int x1,y1;
 		x = r.nextInt(DogeFrame.WIDTH);
 		y = r.nextInt(DogeFrame.FRAME_HEIGHT/3);
@@ -196,7 +202,8 @@ public class DogeFrame extends GameFrame{
 		
 		Zvezda z = new Zvezda(x, y,  scala, rotate);
 		zvezde.add(z);
-		//zvezde.add(z);
+		//zvezde.add(z);*/
+		
 	}
 
 	@Override
@@ -264,22 +271,13 @@ public class DogeFrame extends GameFrame{
 	
 	
     public void initStars(){
+    	int x,y;
     	for(int i=0;i<DogeFrame.NUMBER_OF_STARS;i++){
-			Random r = new Random();
-			
-			int x,y;
-			x = r.nextInt(DogeFrame.WIDTH);
-			y = r.nextInt(DogeFrame.FRAME_HEIGHT/3);
-			
-			//28 35
-			
-			int scala = (r.nextInt(35)%35+28);
-			double rotate = r.nextDouble()*Math.PI;
-			
-			if(rotate == 0){
-				rotate = 1.0;
-			}
-			
+			x = rnd.nextInt(FRAME_WIDTH);
+			System.out.println(x);
+			y = rnd.nextInt(DogeFrame.FRAME_HEIGHT/2);
+			int scala = (rnd.nextInt(35)%35+28);
+			double rotate = rnd.nextDouble()*Math.PI+1.0;
 			Zvezda z = new Zvezda(x, y,  scala, rotate);
 			zvezde.add(z);
 		}
