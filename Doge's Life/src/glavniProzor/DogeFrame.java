@@ -129,8 +129,8 @@ public class DogeFrame extends GameFrame{
 		
 		int x1,y1,r1,r2;
 		
-		x1=doge.getPositionX();
-		y1=doge.getPositionY();
+		x1=doge.getCenterX();
+		y1=doge.getCenterY();
 		r1 = Math.min(dogeSprite.getFrameWidth()/2, dogeSprite.getFrameHeight()/2);
 		r2 = Math.min(coinSprite.getFrameWidth()/2, coinSprite.getFrameHeight()/2);
 		
@@ -144,7 +144,7 @@ public class DogeFrame extends GameFrame{
 			y2=c.getPositionY();
 			
 			if((x2-x1)*(x2-x1) + (y1-y2)*(y1-y2) <= (r1+r2)*(r1+r2)){
-				System.out.println("Doge colision");
+				//System.out.println("Doge colision");
 				
 				
 				
@@ -204,6 +204,9 @@ public class DogeFrame extends GameFrame{
 		zvezde.add(z);
 		//zvezde.add(z);*/
 		
+		doge.setPosition(x, y);
+		doge.setCenterX(x+doge.getMySheet().getFrameW()/2);
+		doge.setCenterY(y+doge.getMySheet().getFrameH()/2);
 	}
 
 	@Override
@@ -274,7 +277,6 @@ public class DogeFrame extends GameFrame{
     	int x,y;
     	for(int i=0;i<DogeFrame.NUMBER_OF_STARS;i++){
 			x = rnd.nextInt(FRAME_WIDTH);
-			System.out.println(x);
 			y = rnd.nextInt(DogeFrame.FRAME_HEIGHT/2);
 			int scala = (rnd.nextInt(35)%35+28);
 			double rotate = rnd.nextDouble()*Math.PI+1.0;

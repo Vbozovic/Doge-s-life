@@ -53,6 +53,8 @@ public class SpriteSheet {
 		sheet=originalsheet;
 	}
 	
+	
+	
 	public void applyEffect()
 	{
 		
